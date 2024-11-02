@@ -77,8 +77,8 @@ onMounted(() => {
 
 <template>
   <ul>
-    <li :key='key' v-for='(item, key) in listItems'>
-      <ListItem :is-checked='item.checked' v-on:click="updateItem(item)">{{ item.title }}</ListItem>
+    <li :key='key' v-for='(item, key) in sortedList'>
+      <ListItem :is-checked='item.checked' v-on:click.prevent="updateItem(item)">{{ item.title }}</ListItem>
     </li>
   </ul>
 </template>
