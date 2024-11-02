@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
+import type { Ref } from 'vue'
 import ListItem from './ListItem.vue'
 
 type Item = {
@@ -6,18 +8,35 @@ type Item = {
   checked?: boolean
 }
 
-const listItems: Item[] = [
+const listItems: Ref<Item[]> = ref([
   { title: 'Make a todo list app', checked: true },
   { title: 'Predict the weather', checked: false },
   { title: 'Play some tunes', checked: false },
   { title: 'Let\'s get cooking', checked: false },
-]
+])
+
+const updateItem = (item: Item): void => {
+  const updatedItem = findItemInList(item)
+  if (updatedItem) {
+    toggleItemChecked(updatedItem)
+  }
+}
+
+const findItemInList = (item: Item): Item | undefined => {
+  return listItems.value.find(
+    (itemInList: Item) => itemInList.title === item.title
+  )
+}
+
+const toggleItemChecked = (item: Item): void => {
+  item.checked = !item.checked
+}
 </script>
 
 <template>
   <ul>
     <li :key='key' v-for='(item, key) in listItems'>
-      <ListItem :is-checked='item.checked'>{{ item.title }}</ListItem>
+      <ListItem :is-checked='item.checked' v-on:click="updateItem(item)">{{ item.title }}</ListItem>
     </li>
   </ul>
 </template>
