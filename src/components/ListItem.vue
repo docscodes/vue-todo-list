@@ -15,6 +15,7 @@ defineProps<{
 label {
   cursor: pointer;
 }
+
 .checked {
   text-decoration: line-through;
 }

@@ -15,14 +15,6 @@ type Item = {
 //   { title: 'Let\'s get cooking', checked: false },
 // ])
 
-const updateItem = (item: Item): void => {
-  const updatedItem = findItemInList(item)
-  if (updatedItem) {
-    toggleItemChecked(updatedItem)
-    setToStorage(storageItems.value)
-  }
-}
-
 const findItemInList = (item: Item): Item | undefined => {
   return storageItems.value.find(
     (itemInList: Item) => itemInList.title === item.title
@@ -32,6 +24,16 @@ const findItemInList = (item: Item): Item | undefined => {
 const toggleItemChecked = (item: Item): void => {
   item.checked = !item.checked
 }
+
+const updateItem = (item: Item): void => {
+  const updatedItem = findItemInList(item)
+  if (updatedItem) {
+    toggleItemChecked(updatedItem)
+    setToStorage(storageItems.value)
+  }
+}
+
+const storageItems: Ref<Item[]> = ref([])
 
 const sortedList = computed(() =>
   [...storageItems.value].sort((a, b) => (a.checked ? 1 : 0) - (b.checked ? 1 : 0))
@@ -48,8 +50,6 @@ const getFromStorage = (): Item[] | [] => {
   }
   return []
 }
-
-const storageItems: Ref<Item[]> = ref([])
 
 const initListItems = (): void => {
   if (storageItems.value?.length === 0) {
