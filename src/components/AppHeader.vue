@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1><span class="icon" aria-hidden="true">✅</span> To do</h1>
-    <p>Building Real-world Web Applications with Vue.js 3</p>
+    <p>A todo list.</p>
   </header>
 </template>
 
